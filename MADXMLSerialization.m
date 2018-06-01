@@ -108,8 +108,10 @@
 - (NSDictionary *)deserializedDictionary {
   NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
   parser.delegate = self;
-  [parser parse];
-  return currentElement.content;
+  if ([parser parse]) {
+    return currentElement.content;
+  }
+  return nil;
 }
 
 - (void)parser:(NSXMLParser *)parser
